@@ -29,8 +29,10 @@ def run_game():
 		gf.check_events(ai_settings, screen, ship, bullets)
 		ship.update()
 		# 删除已消失的子弹
-		gf.update_bullets(bullets)
+		gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
 		gf.update_aliens(ai_settings, aliens)
+		#gf.dectet_fire(bullets, aliens)
 		gf.update_screen(ai_settings, screen, ship, aliens, bullets)	
+		
 			
 run_game()
