@@ -2,6 +2,7 @@
 import pygame
 from pygame.sprite import Group
 from settings import Settings
+from game_status import GameStatus
 from ship import Ship
 from alien import Alien
 import game_functions as gf
@@ -22,16 +23,20 @@ def run_game():
 	
 	# 创建外星人群
 	gf.create_fleet(ai_settings, screen, ship, aliens)
+	
+	# 创建一个用于存储游戏统计信息的实例
+	status = GameStatus(ai_settings)
 
 	# 开始游戏的主循环
 	while True:
 		# 监视键盘和鼠标事件
 		gf.check_events(ai_settings, screen, ship, bullets)
-		ship.update()
-		# 删除已消失的子弹
-		gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-		gf.update_aliens(ai_settings, aliens)
-		#gf.dectet_fire(bullets, aliens)
+		if status.game_active:
+			ship.update()
+			# 删除已消失的子弹
+			gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+			gf.update_aliens(ai_settings, status, screen, ship, aliens, bullets)
+			#gf.dectet_fire(bullets, aliens)
 		gf.update_screen(ai_settings, screen, ship, aliens, bullets)	
 		
 			
