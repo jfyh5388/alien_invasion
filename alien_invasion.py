@@ -5,6 +5,7 @@ from settings import Settings
 from game_status import GameStatus
 from ship import Ship
 from alien import Alien
+from button import Button
 import game_functions as gf
 def run_game():
 	# 初始化游戏并创建一个屏幕对象
@@ -13,6 +14,7 @@ def run_game():
 	screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Alien Invasion")
 	
+	play_button = Button(ai_settings, screen, "Play")
 	
 	# 创建一艘飞船
 	ship = Ship(screen, ai_settings)	
@@ -30,14 +32,14 @@ def run_game():
 	# 开始游戏的主循环
 	while True:
 		# 监视键盘和鼠标事件
-		gf.check_events(ai_settings, screen, ship, bullets)
+		gf.check_events(ai_settings, screen, status, play_button, ship, aliens, bullets)
 		if status.game_active:
 			ship.update()
 			# 删除已消失的子弹
 			gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
 			gf.update_aliens(ai_settings, status, screen, ship, aliens, bullets)
 			#gf.dectet_fire(bullets, aliens)
-		gf.update_screen(ai_settings, screen, ship, aliens, bullets)	
+		gf.update_screen(ai_settings, screen, status, ship, aliens, bullets, play_button)	
 		
 			
 run_game()
