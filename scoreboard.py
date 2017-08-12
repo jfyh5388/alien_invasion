@@ -63,7 +63,3 @@ class Scoreboard():
 		# ªÊ÷∆∑…¥¨
 		self.ships.draw(self.screen)
 		
-
-	
-
-

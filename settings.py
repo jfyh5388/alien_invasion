@@ -15,7 +15,7 @@ class Settings():
 		self.bullet_color = 60, 60, 60
 		self.bullets_allowed = 3
 		
-		self.fleet_drop_speed = 100
+		self.fleet_drop_speed = 10
 
 		
 		# 飞船设置
