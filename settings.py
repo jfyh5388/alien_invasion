@@ -1,44 +1,45 @@
 #coding=utf-8
 class Settings():
-	#´æ´¢¡¶ÍâĞÇÈËÈëÇÖ¡·µÄËùÓĞÉèÖÃµÄÀà
+	#å­˜å‚¨ã€Šå¤–æ˜Ÿäººå…¥ä¾µã€‹çš„æ‰€æœ‰è®¾ç½®çš„ç±»
 	def __init__(self):
-		#³õÊ¼»¯ÓÎÏ·µÄÉèÖÃ
-		# ÆÁÄ»ÉèÖÃ
+		#åˆå§‹åŒ–æ¸¸æˆçš„è®¾ç½®
+		# å±å¹•è®¾ç½®
 		self.screen_width = 1200
 		self.screen_height = 800
 		self.bg_color = (230, 230, 230)
 		#self.bg_color = (0, 0, 255)
 		
-		# ×Óµ¯ÉèÖÃ
-		self.bullet_speed_factor = 3
-		self.bullet_width = 300
+		# å­å¼¹è®¾ç½®
+		self.bullet_width = 3
 		self.bullet_height = 15
 		self.bullet_color = 60, 60, 60
 		self.bullets_allowed = 3
 		
-		self.alien_speed_factor = 1
 		self.fleet_drop_speed = 10
-		# fleet_directionÎª1±íÊ¾ÏòÓÒÒÆ£¬Îª-1±íÊ¾Ïò×óÒÆ
-		self.fleet_direction = 1
+
 		
-		# ·É´¬ÉèÖÃ
-		self.ship_speed_factor = 1.5
+		# é£èˆ¹è®¾ç½®
 		self.ship_limit = 3
 		
-		# ÒÔÊ²Ã´ÑùµÄËÙ¶È¼Ó¿ìÓÎÏ·½Ú×à
-		self.speedup_scale = 1.5
+		# ä»¥ä»€ä¹ˆæ ·çš„é€Ÿåº¦åŠ å¿«æ¸¸æˆèŠ‚å¥
+		self.speedup_scale = 1.1
+		# å¤–æ˜Ÿäººç‚¹æ•°çš„æé«˜é€Ÿåº¦
+		self.score_scale = 1.5
 		self.initialize_dynamic_settings()
 		
 	def initialize_dynamic_settings(self):
-		#"""³õÊ¼»¯ËæÓÎÏ·½øĞĞ¶ø±ä»¯µÄÉèÖÃ"""
+		#"""åˆå§‹åŒ–éšæ¸¸æˆè¿›è¡Œè€Œå˜åŒ–çš„è®¾ç½®"""
 		self.ship_speed_factor = 1.5
 		self.bullet_speed_factor = 3
 		self.alien_speed_factor = 1
-		# fleet_directionÎª1±íÊ¾ÏòÓÒ£»Îª-1±íÊ¾Ïò×ó
+		# fleet_directionä¸º1è¡¨ç¤ºå‘å³ç§»ï¼Œä¸º-1è¡¨ç¤ºå‘å·¦ç§»
 		self.fleet_direction = 1
+		# è®°åˆ†
+		self.alien_points = 50
 	
 	def increase_speed(self):
-		#"""Ìá¸ßËÙ¶ÈÉèÖÃ"""
+		#"""æé«˜é€Ÿåº¦è®¾ç½®"""
 		self.ship_speed_factor *= self.speedup_scale
 		self.bullet_speed_factor *= self.speedup_scale
 		self.alien_speed_factor *= self.speedup_scale
+		self.alien_points = int(self.alien_points * self.score_scale)
