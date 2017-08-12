@@ -5,13 +5,13 @@ from bullet import Bullet
 from time import sleep
 from alien import Alien
 
-def check_keydown_events(event, ai_settings, screen, ship, bullets):
+def check_keydown_events(event, ai_settings, screen, ship, bullets, status):
 	#"""响应按键"""
 	if event.key == pygame.K_RIGHT:
 		ship.moving_right = True
 	elif event.key == pygame.K_LEFT:
 		ship.moving_left = True
-	elif event.key == pygame.K_SPACE:
+	elif event.key == pygame.K_SPACE and status.game_active == True:
 		fire_bullet(ai_settings, screen, ship, bullets)
 	elif event.key == pygame.K_q:
 		sys.exit()
@@ -36,7 +36,7 @@ def check_events(ai_settings, screen, status, play_button, ship, aliens, bullets
 		if event.type == pygame.QUIT:
 			sys.exit()
 		elif event.type == pygame.KEYDOWN:
-			check_keydown_events(event, ai_settings, screen, ship, bullets)
+			check_keydown_events(event, ai_settings, screen, ship, bullets, status)
 		elif event.type == pygame.KEYUP:
 			check_keyup_events(event, ship)
 		elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -48,6 +48,9 @@ def check_play_button(ai_settings, screen, status, play_button, ship, aliens, bu
 	#"""在玩家单击Play按钮时开始新游戏"""
 	button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
 	if button_clicked and not status.game_active:
+		
+		# 重置游戏设置
+		ai_settings.initialize_dynamic_settings()
 		# 隐藏光标
 		pygame.mouse.set_visible(False)
 		#重置游戏统计信息
@@ -81,6 +84,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
 	if len(aliens) == 0:
 		# 删除现有的所有子弹，并创建一个新的外星人群
 		bullets.empty()
+		ai_settings.increase_speed()
 		create_fleet(ai_settings, screen, ship, aliens)
 				
 def update_screen(ai_settings, screen, status, ship, aliens, bullets, play_button):
@@ -175,7 +179,17 @@ def update_aliens(ai_settings, status, screen, ship, aliens, bullets):
 	if pygame.sprite.spritecollideany(ship, aliens):
 		ship_hit(ai_settings, status, screen, ship, aliens, bullets)
 		
-
+	# 检查是否有外星人到达屏幕底端
+	check_aliens_bottom(ai_settings, status, screen, ship, aliens, bullets)
+		
+def check_aliens_bottom(ai_settings, status, screen, ship, aliens, bullets):
+	#"""检查是否有外星人到达了屏幕底端"""
+	screen_rect = screen.get_rect()	
+	for alien in aliens.sprites():
+		if alien.rect.bottom >= screen_rect.bottom:
+			# 像飞船被撞到一样进行处理
+			ship_hit(ai_settings, status, screen, ship, aliens, bullets)
+			break
 		
 
 	
