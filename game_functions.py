@@ -4,6 +4,7 @@ import pygame
 from bullet import Bullet
 from time import sleep
 from alien import Alien
+import file_io
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets, status):
 	#"""ÏìÓ¦°´¼ü"""
@@ -14,6 +15,7 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets, status):
 	elif event.key == pygame.K_SPACE and status.game_active == True:
 		fire_bullet(ai_settings, screen, ship, bullets)
 	elif event.key == pygame.K_q:
+		file_io.writedata(status.high_score, ai_settings.store_file)
 		sys.exit()
 		
 def fire_bullet(ai_settings, screen, ship, bullets):

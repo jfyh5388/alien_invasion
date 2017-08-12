@@ -15,7 +15,7 @@ class Settings():
 		self.bullet_color = 60, 60, 60
 		self.bullets_allowed = 3
 		
-		self.fleet_drop_speed = 10
+		self.fleet_drop_speed = 100
 
 		
 		# 飞船设置
@@ -26,6 +26,8 @@ class Settings():
 		# 外星人点数的提高速度
 		self.score_scale = 1.5
 		self.initialize_dynamic_settings()
+		
+		self.store_file = "data.txt"
 		
 	def initialize_dynamic_settings(self):
 		#"""初始化随游戏进行而变化的设置"""
