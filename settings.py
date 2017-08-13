@@ -1,4 +1,5 @@
 #coding=utf-8
+import pygame
 class Settings():
 	#存储《外星人入侵》的所有设置的类
 	def __init__(self):
@@ -16,6 +17,8 @@ class Settings():
 		self.bullets_allowed = 3
 		
 		self.fleet_drop_speed = 10
+		
+		#self.sound = pygame.mixer.Sound("sounds/background.mp3")
 
 		
 		# 飞船设置
@@ -28,6 +31,8 @@ class Settings():
 		self.initialize_dynamic_settings()
 		
 		self.store_file = "data.txt"
+		
+
 		
 	def initialize_dynamic_settings(self):
 		#"""初始化随游戏进行而变化的设置"""

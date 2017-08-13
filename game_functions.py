@@ -23,6 +23,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 	#创建新子弹，并将其加入到编组bullets中
 	if len(bullets) < ai_settings.bullets_allowed:
 		new_bullet = Bullet(ai_settings, screen, ship)
+		new_bullet.sound.play(0)
 		bullets.add(new_bullet)
 
 def check_keyup_events(event, ship):
@@ -59,10 +60,7 @@ def check_play_button(ai_settings, screen, status, play_button, ship, aliens, bu
 		status.reset_status()		
 		status.game_active = True		
 		# 重置记分牌图像
-		sb.prep_score()
-		sb.prep_high_score()
-		sb.prep_level()
-		sb.prep_ships()
+		sb.prep_images()
 		# 清空外星人列表和子弹列表
 		aliens.empty()
 		bullets.empty()
@@ -93,7 +91,10 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, st
 			sb.prep_score()
 		check_high_score(status, sb)
 	if len(aliens) == 0:
-		# 删除现有的所有子弹，并创建一个新的外星人群
+		start_new_level(bullets, ai_settings, status, sb, screen, ship, aliens)
+
+def start_new_level(bullets, ai_settings, status, sb, screen, ship, aliens):
+	# 删除现有的所有子弹，并创建一个新的外星人群
 		bullets.empty()
 		ai_settings.increase_speed()
 		# 提高等级
@@ -177,6 +178,7 @@ def change_fleet_direction(ai_settings, aliens):
 def ship_hit(ai_settings, status, screen, ship, aliens, bullets, sb):
 	#"""响应被外星人撞到的飞船"""
 	# 将ships_left减1
+	ship.sound.play(0)
 	if status.ships_left > 1:
 		status.ships_left -= 1
 		# 清空外星人列表和子弹列表

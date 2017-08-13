@@ -22,6 +22,8 @@ class Ship(Sprite):
 		self.moving_right = False
 		self.moving_left = False
 		
+		self.sound = pygame.mixer.Sound("sounds/crash.wav")
+		
 	def update(self):
 		#"""根据移动标志调整飞船的位置"""
 		if self.moving_right and self.rect.right < self.screen_rect.right:

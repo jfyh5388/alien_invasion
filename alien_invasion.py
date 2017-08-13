@@ -31,8 +31,11 @@ def run_game():
 	status = GameStatus(ai_settings)
 	
 	sb = Scoreboard(ai_settings, screen, status)
+	
+	pygame.mixer.music.load("sounds/background.wav")
+	pygame.mixer.music.play(-1, 0.0)
 
-	# 开始游戏的主循环
+	#开始游戏的主循环
 	while True:
 		# 监视键盘和鼠标事件
 		gf.check_events(ai_settings, screen, status, play_button, ship, aliens, bullets, sb)

@@ -13,11 +13,14 @@ class Scoreboard():
 		self.text_color = (30, 30, 30)
 		self.font = pygame.font.SysFont(None, 48)
 		# 准备包含最高得分和当前得分的图像
+		self.prep_images()
+
+	def prep_images(self):
 		self.prep_score()
 		self.prep_high_score()
 		self.prep_level()
 		self.prep_ships()
-
+		
 	def prep_score(self):
 		#"""将得分转换为渲染的图像"""
 		rounded_score = int(round(self.status.score, -1))
